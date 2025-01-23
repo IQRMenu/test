@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta property="og:title" content="CIAO CACAO">
+  <meta property="og:description" content="De especilidad no solo cafe...">
+  <meta property="og:image" content="https://iqrmenu.github.io/CIAO-CACAO/img/logo.png">
+  <meta property="og:url" content="https://iqrmenu.github.io/CIAO-CACAO/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="./img/icon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>CIAO CACAO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/menu.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer=""></script>
+  <script type="module" src="./js/render.js" defer></script>
+</head>
+
+<body class="event_none">
+  <div class="annonce-block">
+    <h2 id="announcement"></h2>
+    <p id="announcementText"></p>
+    <button id="annonce-block-clouse">Ok</button>
+  </div>
+
+  <div class="loader">
+    <img src="./img/logo.png" alt="">
+  </div>
+
+  <form target="iframe" method="post" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeeB1nBthuaUehbN_1XHBKwR3yMKWh6FGzjsEL9NwbttBKfog/formResponse" id="sendOrderTable">
+    <iframe name="iframe" id="iframe"></iframe>
+    <input type="text" id="langOrderTable" name="entry.1316586027">
+    <input type="text" id="visitorTypeOrderTable" name="entry.1007692396">
+    <input type="text" id="tableNumberOrderTable" name="entry.2046839169">
+    <input type="text" id="dishesOrderTable" name="entry.1908326377">
+    <input type="text" id="totolCostOrderTable" name="entry.1796550809">
+    <!-- <button type="submit">Send</button> -->
+  </form>
+
+  <nav>
+    <div class="container">
+      <div class="nav__elements">
+        <div class="nav__links">
+          <a href="./menu-es.html">ES</a>
+          <hr>
+          <a href="./menu-pt.html">PT</a>
+          <hr>
+          <a href="./menu-en.html">EN</a>
+          <hr>
+        </div>
+        <a href="./index.html" class="nav__logo">
+          <img src="./img/navLogo.png" alt="">
+        </a>
+        <button class="basket"><i class="fa-solid fa-basket-shopping"></i></button>
+        <button class="basket-clouse">
+          <i class="fa-solid fa-reply"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <h1>Menu</h1>
+  <div id="dishesCategoryList" class="category-list"></div>
+  <div id="dishesList" class="dishes-list"></div>
+
+  <div class="basket-box">
+    <button id="yourOrder">Ваш заказ</button>
+    <h3 id="yourCart"></h3>
+    <div id="basketList" class="basket-box__list basket-list"></div>
+    <div class="basket-box__total-price" id="totalCost"></div>
+    <button class="button-order" id="sendOrder"></button>
+  </div>
+
+  <div class="order-box">
+    <button id="orderListClouse"><i class="fa-solid fa-xmark"></i></button>
+    <h2>Ваш заказ</h2>
+    <p class="totalCost-order">Общая стоимость: </p>
+    <div class="order-list"></div>
+  </div>
+
+  <footer>
+    <a id="address-link" >
+      <i class="fa-solid fa-location-dot"></i>
+      <span></span>
+    </a>
+    <a id="LinkIQRMenuUnfoES" href="https://iqrmenu.github.io/InfoES/">
+      <img src="./img/IQRMenuLogo.png" alt="">
+      <span id="IQRMenuLink"></span>
+    </a>
+  </footer>
+</body>
+
+</html>
