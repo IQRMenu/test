@@ -1,220 +1,156 @@
-// Получаем меню
 import { fetchDishesList } from "./getDishesList.js";
-fetchDishesList()
-  .then(dishesList => {
-    storeData = dishesList;
-    renderDishesCategoryList(storeData);
-    setTimeout(() => {
-      document.querySelector('.loader').classList.add('loader_hide');
-    }, 500);
-  })
-  .catch(error => {
-    console.error('Ошибка при получении списка блюд:', error);
-  });
+import { words } from './words.js';
+import { globalData } from "./globalData.js";
 
 
-//Выбор версии
-const VersionPro = true
+//Глобальные переменные
+const lang = document.documentElement.lang;
+const body = document.querySelector('body');
+const annonceBblockDiv = document.querySelector('.annonce-block');
 const sendOrderButton = document.getElementById('sendOrder');
-if (VersionPro == false) {
+const yourOrderButton = document.getElementById('yourOrder');
+const basketButtonOpen = document.querySelector('.basket');
+const basketButtonClouse = document.querySelector('.basket-clouse');
+const basketBox = document.querySelector('.basket-box');
+const orderBoxDiv = document.querySelector('.order-box');
+
+// Функция для заполнения формы
+function configureForm() {
+  const form = document.getElementById("sendOrderTable");
+  if (!form) {
+    console.error("Форма не найдена!");
+    return;
+  }
+  form.setAttribute("action", globalData.fotmAction);
+
+  for (const [inputId, nameValue] of Object.entries(globalData.inputNames)) {
+    const input = document.getElementById(inputId);
+    if (input) {
+      input.setAttribute("name", nameValue);
+    } else {
+      console.warn(`Инпут с ID '${inputId}' не найден.`);
+    }
+  }
+}
+
+// Вызов функции после загрузки страницы
+
+
+// открытие и закрытие корзины
+function basketBoxOpenClouse() {
+  basketButtonOpen.classList.toggle('button_moveLeft');
+  basketButtonClouse.classList.toggle('basket-clouse_active');
+  basketBox.classList.toggle('basket-box_open');
+}
+basketButtonOpen.onclick = function () {
+  basketBoxOpenClouse()
+}
+basketButtonClouse.onclick = function () {
+  basketBoxOpenClouse()
+}
+
+// функция для добавления ссылки на google
+const addressLinkA = document.querySelector('#google-link');
+addressLinkA.setAttribute('href', globalData.addressLink);
+addressLinkA.querySelector('span').innerText = 'Оставить отзыв';
+
+//Проверка версии
+if (globalData.version == 'basik') {
   sendOrderButton.disabled = true;
-  document.getElementById('sendOrder').classList.add('display_none');
+  sendOrderButton.classList.add('display_none');
 } else {
   sendOrderButton.disabled = false;
-  document.querySelector('.annonce-block').classList.add('displayNone');
-  document.querySelector('body').classList.remove('event_none');
+  annonceBblockDiv.classList.add('displayNone');
+  body.classList.remove('event_none');
+  configureForm();
 }
 
 //функция для скрытия предупреждения
 document.querySelector('#annonce-block-clouse').onclick = function () {
   document.querySelector('.annonce-block').classList.add('displayNone');
-  document.querySelector('body').classList.remove('event_none');
+  body.classList.remove('event_none');
 }
 
-//Глобальные переменные
-const lang = document.documentElement.lang;
-const mainLang = 'ru';
-const currencySymbol = '$';
-const tel = '';
-const address = 'Arévalo 1506 Buenos Aires';
-const addressLink = 'https://maps.app.goo.gl/StkHhp6WBcwhrJUTA';
-const addressLinkA = document.querySelector('#address-link');
-addressLinkA.setAttribute('href', addressLink);
-addressLinkA.querySelector('span').innerText = address
+//Функция рендера страницы на нужном языке
+for (let key in words[lang]) {
+  if (document.querySelector(`#${key}`)) {
+    document.querySelector(`#${key}`).innerHTML = words[lang][key];
+  }
+}
 
-let botToken = '';
-// const chatId = "";
-document.addEventListener("DOMContentLoaded", function () {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', './js/info.php', true);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      var response = xhr.responseText;
-      var a = response.trim(); // Убираем возможные лишние пробелы и переносы строки
-      botToken = a;
-    }
-  };
-  xhr.send();
+//Функция открытия и закрытия ордера
+yourOrderButton.addEventListener('click', () => {
+  orderBoxDiv.classList.add('_show');
+});
+document.getElementById('orderBoxClouse').addEventListener('click', () => {
+  orderBoxDiv.classList.remove('_show');
 });
 
-// const botToken = "7722475036:AAHXV-qTFP3eOTxmg_3fiRv28xLa8DkK7E8";
-
-
-// тестовый бот
-// const botToken = "6787781737:AAGpLJ84BHUon0i6p9mxa3EecA-GPrDTgL4";
-const chatId = "-4566719816";
-
-
-const words = {
-  ru: {
-    portion: 'порция',
-    cost: 'стоимость',
-    pieces: 'штуки',
-
-
-    totalCost: 'Итого: ',
-    yourOrder: 'Ваш заказ:',
-    sendOrder: 'Отправить заказ',
-
-    announcement: '',
-    announcementText: 'Выберете желаемые блюда, затем пригласите официанта и покажите ему корзину',
-    menu: 'МЕНЮ',
-    leaveReviewLink: 'Оставьте отзыв',
-    deletePortionMessage: 'Удалить порцию?',
-
-    leaveReview: 'Оставить отзыв',
-    thankYou: 'Спасибо! Ваш отзыв отправлен!',
-    food: 'Еда:',
-    service: 'Обслуживание:',
-    comment: 'Ваш комментарий',
-    send: 'Отправить',
-
-    textSendOrder: 'Заказ успешно отправлен!',
-    textErrorSendOrder: 'Ошибка при отправке заказа. Пожалуйста, попробуйте еще раз или принласите официанта',
-    textAskTableNumber: 'Пожалуйста укажите номер стола за которым вы ожидаете',
-
-    tableNumber: 'Стол № ',
-    newOrderMessage: `‼️🔴 Новый заказ!\n`,
-    updateOrderMessage: `‼️🟢 Обновление заказа\n`,
-
-    IQRMenuLink: 'Заказать меню',
-  },
-  en: {
-    portion: 'portion',
-    cost: 'cost',
-    pieces: 'pieces',
-
-    totalCost: 'total cost',
-    yourOrder: 'Your order:',
-    sendOrder: 'Send order',
-
-    announcement: '',
-    announcementText: 'Select the desired dishes, then invite the waiter and show him the basket',
-    menu: 'MENU',
-    leaveReviewLink: 'Leave a review',
-    deletePortionMessage: 'Delete portion?',
-
-    leaveReview: 'Leave a review',
-    thankYou: 'Thank you! Your review has been sent!',
-    food: 'Food:',
-    service: 'Service:',
-    comment: 'Your comment',
-    send: 'Send',
-
-    textSendOrder: 'Order successfully sent!',
-    textErrorSendOrder: 'Error sending order. Please try again or call the waiter',
-    textAskTableNumber: 'Please indicate the table number you are waiting at.',
-
-    tableNumber: 'Table № ',
-    orderMessage: '⚡⚡New order!\nList of dishes:\n',
-
-    IQRMenuLink: 'Order menu',
-  },
-  es: {
-    portion: 'porción',
-    cost: 'costo',
-    pieces: 'piezas',
-
-    totalCost: 'Сosto total:',
-    yourOrder: 'Tu pedido:',
-    sendOrder: 'Enviar pedido',
-
-    announcement: '',
-    announcementText: 'Selecciona los platos deseados, luego invita al camarero y muéstrale la cesta',
-    menu: 'MENÚ',
-    leaveReviewLink: 'Dejar una reseña',
-
-    leaveReview: 'Dejar una reseña',
-    thankYou: '¡Gracias! Tu reseña ha sido enviada!',
-    food: 'Comida:',
-    service: 'Servicio:',
-    comment: 'Tu comentario',
-    send: 'Enviar',
-
-    textSendOrder: '¡Pedido enviado con éxito!',
-    textErrorSendOrder: 'Error al enviar el pedido. Por favor, inténtalo de nuevo o llama al camarero',
-    textAskTableNumber: 'Por favor indica el número de mesa en la que estás esperando.',
-
-    tableNumber: 'Tabla nro. ',
-    orderMessage: '⚡⚡¡Nuevo pedido!\nLista de platos:\n',
-
-    IQRMenuLink: 'Menú de pedidos',
-  },
-  pt: {
-    portion: 'porção',
-    cost: 'custo',
-    pieces: 'peças',
-
-    totalCost: 'Custo total:',
-    yourOrder: 'Seu pedido:',
-    sendOrder: 'Enviar pedido',
-
-    announcement: '',
-    announcementText: 'Selecione os pratos desejados, em seguida, chame o garçom e mostre a cesta',
-    menu: 'MENU',
-    leaveReviewLink: 'Deixar uma avaliação',
-    deletePortionMessage: 'Excluir porção?',
-
-    leaveReview: 'Deixar uma avaliação',
-    thankYou: 'Obrigado! Sua avaliação foi enviada!',
-    food: 'Comida:',
-    service: 'Serviço:',
-    comment: 'Seu comentário',
-    send: 'Enviar',
-
-    textSendOrder: 'Pedido enviado com sucesso!',
-    textErrorSendOrder: 'Erro ao enviar o pedido. Por favor, tente novamente ou chame o garçom',
-    textAskTableNumber: 'Por favor indique o número da mesa em que você está esperando',
-
-    tableNumber: 'Tabela nº. ',
-    orderMessage: '⚡⚡Novo pedido!\nLista de pratos:\n',
-
-
-    IQRMenuLink: 'Menu de pedidos',
-  }
-}
-
-//Функция регдера страницы на нужном языке
-function renderPage() {
-  for (let key in words[lang]) {
-    if (document.querySelector(`#${key}`)) {
-      document.querySelector(`#${key}`).textContent = words[lang][key];
-    }
-  }
-}
-renderPage();
-
 //изменяемые переменные необходимые для работы с меню
+let userSavedData;
 let currentCategory = '';
 let storeData = [];
 let basketList = [];
 let ordersList = [];
-let tableNumber = localStorage.getItem("table");
+let tableNumber = '';
 let orderId = '';
+
+fetchDishesList()
+  .then(dishesList => {
+    storeData = dishesList;
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0'); // День
+    const month = String(now.getMonth() + 1).padStart(2, '0'); // Месяц
+    const year = now.getFullYear(); // Год
+    const date = `${day}.${month}.${year}`;
+    const minutes = String(now.getMinutes()).padStart(2, '0'); // Минуты
+
+    if (localStorage.getItem('userData')) {
+
+      if (JSON.parse(localStorage.getItem('userData')).datelastVisit != date) {
+        localStorage.removeItem('userData');
+        if (localStorage.getItem('table') != 'null') {
+          tableNumber = localStorage.getItem('table');
+        }
+
+      } else {
+        userSavedData = JSON.parse(localStorage.getItem('userData'));
+        orderId = userSavedData.userOrderID;
+        yourOrderButton.innerHTML = `Ваш закза<br>№ ${orderId}`;
+        ordersList = userSavedData.userOrderList;
+        if (ordersList.length > 0) {
+          yourOrderButton.classList.add('_active');
+          yourOrderButton.classList.remove('_display_none');
+          renderOrderList();
+        }
+        basketList = userSavedData.userBascketList;
+        if (basketList.length > 0) {
+          renderBasketList();
+          basketButtonOpen.classList.add('basket_have');
+          sendOrderButton.disabled = false;
+          sendOrderButton.classList.remove('_display_none');
+        }
+        tableNumber = userSavedData.userTableNumber;
+      }
+    }
+    renderDishesCategoryList(storeData);
+
+    setTimeout(() => {
+      document.querySelector('.loader').classList.add('loader_hide');
+    }, 500);
+  })
+  .catch(error => {
+    // console.error('Ошибка при получении списка блюд:', error);
+    alert('Простите приложение временно недоступно')
+  });
+
+
 
 //Функция рендера раздела категории
 function renderDishesCategoryList(dishesList) {
   const dishesCategoryListContainer = document.getElementById('dishesCategoryList');
+  dishesCategoryListContainer.innerHTML = '';
   const addedCategories = new Set(); // Создаем множество для отслеживания добавенных категорий
 
   dishesList.forEach(dishitem => {
@@ -279,7 +215,7 @@ function renderDishesList(category) {
             const portionElement = document.createElement('div');
             portionElement.classList.add('portion-item');
             portionElement.innerHTML = `
-                  <p class="portion-item__text"><span><span class="portion-name">${portionName}</span> - </span><span> <span class="portion-cost">${portionCost}${currencySymbol}</span></span></p>
+                  <p class="portion-item__text"><span><span class="portion-name">${portionName}</span> - </span><span> <span class="portion-cost">${portionCost}${globalData.currencySymbol}</span></span></p>
                   <div class="portion-item__buttons">
                     <button class="portion-minus"><i class="fa-solid fa-minus"></i></button>
                     <span class="portion-number">${portionNumber}</span>
@@ -289,14 +225,11 @@ function renderDishesList(category) {
             const buttonPortionPlus = portionElement.querySelector('.portion-plus');
             buttonPortionPlus.addEventListener('click', () => {
               dishCard.classList.add('dishes-card_active');
-              basketUpdate('plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${mainLang}DishesName`], portionName, portionCost, dishitem.img, portionElement.querySelector('.portion-number'));
+              basketUpdate('plus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, dishitem.img, portionElement.querySelector('.portion-number'));
             });
             const buttonPortionMinus = portionElement.querySelector('.portion-minus');
             buttonPortionMinus.addEventListener('click', () => {
-              if (portionElement.querySelector('.portion-number').textContent == 1) {
-                dishCard.classList.remove('dishes-card_active');
-              }
-              basketUpdate('minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${mainLang}DishesName`], portionName, portionCost, dishitem.img, portionElement.querySelector('.portion-number'));
+              basketUpdate('minus', dishitem.id, dishitem[`${lang}DishesName`], dishitem[`${globalData.mainLang}DishesName`], portionName, portionCost, dishitem.img, portionElement.querySelector('.portion-number'));
             });
             portionsContainer.appendChild(portionElement);
           }
@@ -323,6 +256,7 @@ function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, p
       basketList = basketList.map(item => item.dishId === `${dishId}-${portionName}` ? { ...item, portionNumber: parseInt(portionNumberSpan.textContent), totalCost: portionCost * parseInt(portionNumberSpan.textContent) } : item);
     } else {
       basketList.push({
+        dishIdCard: dishId,
         dishId: `${dishId}-${portionName}`,
         dishName: dishName,
         dishNameMainLang: dishNameMainLang,
@@ -331,6 +265,7 @@ function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, p
         dishImg: dishImg,
         portionNumber: parseInt(portionNumberSpan.textContent),
         totalCost: portionCost,
+        orderTime: '',
       });
     }
     sendOrderButton.disabled = false;
@@ -341,6 +276,9 @@ function basketUpdate(action, dishId, dishName, dishNameMainLang, portionName, p
       if (parseInt(portionNumberSpan.textContent) === 0) {
         if (confirm(`${words[lang].deletePortionMessage}`)) {
           basketList = basketList.filter(item => item.dishId !== `${dishId}-${portionName}`);
+          if (!basketList.some(obj => obj.dishName === dishName)) {
+            document.querySelector(`[data-id="${dishId}"]`).classList.remove('dishes-card_active');
+          }
           if (basketList.length === 0) {
             basketButtonOpen.classList.remove('basket_have');
             sendOrderButton.disabled = true;
@@ -374,13 +312,13 @@ function renderBasketList() {
           <span class="portion-number">${item.portionNumber}</span>
           <button class="portion-plus"><i class="fa-solid fa-plus"></i></button>
         </div>
-        <p class="basket-item__total-cost">${item.totalCost}${currencySymbol}</p>
+        <p class="basket-item__total-cost">${item.totalCost}${globalData.currencySymbol}</p>
       </div>
     </div>
     <div class="basket-item__info">
       <h3>${item.dishName}</h3>
       <h4>${item.dishNameMainLang}</h4>
-      <p><span>${words[lang].portion}<span class="portion-name">${item.portionName}</span> - </span><span> <span class="portion-cost">${item.portionCost}${currencySymbol}</span></span></p>
+      <p><span>${words[lang].portion}<span class="portion-name">${item.portionName}</span> - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
       
     </div>
     `;
@@ -397,81 +335,68 @@ function renderBasketList() {
     basketListContainer.appendChild(basketItem);
     totalCost += item.totalCost;
   });
-  document.getElementById('totalCost').textContent = `${words[lang].totalCost} ${totalCost}${currencySymbol}`;
+  document.getElementById('totalCost').innerHTML = `${words[lang].totalCost} <span>${totalCost}${globalData.currencySymbol}</span>`;
 }
-
-
-// открытие и закрытие корзины
-function basketBoxOpenClouse() {
-  basketButtonOpen.classList.toggle('button_moveLeft');
-  basketButtonClouse.classList.toggle('basket-clouse_active');
-  basketBox.classList.toggle('basket-box_open');
-}
-const basketButtonOpen = document.querySelector('.basket');
-const basketButtonClouse = document.querySelector('.basket-clouse');
-const basketBox = document.querySelector('.basket-box');
-
-basketButtonOpen.onclick = function () {
-  basketBoxOpenClouse()
-}
-basketButtonClouse.onclick = function () {
-  basketBoxOpenClouse()
-}
-
 
 //Отправка Заказа с сайта
-sendOrderButton.onclick = function () {
+sendOrderButton.addEventListener('click', sendOrder);
+function sendOrder() {
   sendOrderButton.disabled = true;
+  let orderDishesLit = '';
+  let orderTotolCost = '';
 
-  if (tableNumber == 'null') {
+  if (tableNumber == '') {
     tableNumber = prompt(`${words[lang].textAskTableNumber}`);
-    if (tableNumber === null) {
+    if (tableNumber == 'null' || isNaN(tableNumber)) {
+      tableNumber = "";
       sendOrderButton.disabled = false;
+      alert(`${words[lang].textAskTableNumber}`)
+      sendOrder();
       return
     }
   }
-  if (orderId == ''){
+  if (orderId == '') {
     orderId = createOrderId();
   }
+  yourOrderButton.innerHTML = `${words[lang].yourOrderButton} ${orderId}`;
   let totalCostMessage = 0;
-  let orderMessage = `${lang}\n${words[mainLang].tableNumber}${tableNumber}\n\n${words[mainLang].newOrderMessage}\n#️⃣ Номер закза\n${orderId}\n`;
+  let orderMessage = `${lang}\n${words[globalData.mainLang].tableNumber}${tableNumber}\n\n${words[globalData.mainLang].newOrderMessage}\n${words[lang].orderNumber}\n${orderId}\n`;
   let portionNumberMessage = 0;
+
   if (ordersList.length > 0) {
-    orderMessage = `${lang}\n${words[mainLang].tableNumber}${tableNumber}\n\n${words[mainLang].updateOrderMessage}\n#️⃣ Номер закза\n${orderId}\n`;
-    orderMessage += `\n\n🟨 Прошлые блюда:\n`;
+    orderMessage = `${lang}\n${words[globalData.mainLang].tableNumber}${tableNumber}\n\n${words[globalData.mainLang].updateOrderMessage}\n${words[lang].orderNumber}\n${orderId}\n`;
+    orderMessage += `\n\n${words[lang].oldDishes}\n`;
     ordersList.forEach(item => {
       portionNumberMessage += 1;
-      // document.querySelector('#dishesOrderTable').value += `${portionNumberMessage}. ${item.dishName}    `;
-      orderMessage += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName}x${item.portionNumber} - ${item.totalCost}${currencySymbol}\n${item.dishNameMainLang}\n`;
+      orderDishesLit += `${portionNumberMessage}. ${item.dishName}   `;
+      orderMessage += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName}x${item.portionNumber} - ${item.totalCost}${globalData.currencySymbol}\n${item.dishNameMainLang}\n`;
       totalCostMessage += item.totalCost;
     });
     orderMessage += `\n ------------------- \n`;
-    orderMessage += `\n 🟩 Новые блюда:\n`;
-  }else{
-    orderMessage += `\n📃 Список блюда:\n`;
+    orderMessage += `\n${words[lang].newDishes}\n`;
+  } else {
+    orderMessage += `\n${words[lang].listDishes}\n`;
   }
-  
+
   basketList.forEach(item => {
     portionNumberMessage += 1;
-    // document.querySelector('#dishesOrderTable').value += `${portionNumberMessage}. ${item.dishName}    `;
-    orderMessage += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName}x${item.portionNumber} - ${item.totalCost}${currencySymbol}\n${item.dishNameMainLang}\n`;
+    orderDishesLit += `${portionNumberMessage}. ${item.dishName}   `;
+    orderMessage += `\n${portionNumberMessage}. ${item.dishName} - ${item.portionName}x${item.portionNumber} - ${item.totalCost}${globalData.currencySymbol}\n${item.dishNameMainLang}\n`;
     totalCostMessage += item.totalCost;
   });
-  orderMessage += `\n\n💰 ${words[mainLang].totalCost}  ${totalCostMessage}${currencySymbol}`;
 
-  // document.querySelector('#langOrderTable').value = lang;
-  // document.querySelector('#visitorTypeOrderTable').value = 'Новый';
-  // document.querySelector('#tableNumberOrderTable').value = tableNumber;
-  // document.querySelector('#totolCostOrderTable').value = totalCostMessage;
+  orderMessage += `\n\n💰 ${words[globalData.mainLang].totalCostOrder}  ${totalCostMessage}${globalData.currencySymbol}`;
+  orderTotolCost = `${totalCostMessage}${globalData.currencySymbol}`;
 
-  const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+  const apiUrl = `https://api.telegram.org/bot${globalData.botToken}/sendMessage`;
   fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      chat_id: chatId,
+      chat_id: globalData.chatId,
       text: orderMessage,
     }),
   })
@@ -479,28 +404,47 @@ sendOrderButton.onclick = function () {
     .then(response => response.json())
     .then(data => {
       if (data.ok) {
+        sendStatisticToForm(lang, tableNumber, 'New', orderDishesLit, orderTotolCost)
         alert(words[lang].textSendOrder);
-        // formSendOrderTable = document.getElementById('sendOrderTable').submit();// отправка заказа в гугол таблицу
 
       } else {
         alert(words[lang].textErrorSendOrder);
       }
     })
   sendOrderButton.disabled = false;
-  fixOrder();
-}
 
-
-
-function fixOrder() {
-  console.log(ordersList);
-  console.log(basketList);
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0'); // Часы
+  const minutes = String(now.getMinutes()).padStart(2, '0'); // Минуты
+  const orderTime = `${hours}:${minutes}`;
   basketList.forEach(item => {
-    console.log(item);
-
+    item.orderTime = orderTime;
     ordersList.unshift(item);
   });
-  console.log(ordersList);
+  basketList = [];
+
+  renderBasketList();
+  renderDishesCategoryList(storeData);
+  renderDishesList(storeData[0][`${lang}Category`]);
+  renderOrderList();
+}
+
+// Функция для формирования id заказа
+function sendStatisticToForm(lang, tableNumber, client, orderDishesLit, orderTotolCost) {
+  const formSendOrderTable = document.getElementById('sendOrderTable');
+
+  document.querySelector('#langOrderTable').value = lang;
+  document.querySelector('#tableNumberOrderTable').value = tableNumber;
+  document.querySelector('#visitorTypeOrderTable').value = client;
+  document.querySelector('#dishesOrderTable').value = orderDishesLit;
+  document.querySelector('#totolCostOrderTable').value = orderTotolCost;
+
+  formSendOrderTable.submit();
+}
+
+// Функция для рендеренга заказа
+function renderOrderList() {
+  
   let totalCost = 0;
   const orderListDiv = document.querySelector('.order-list');
   orderListDiv.innerHTML = '';
@@ -515,51 +459,38 @@ function fixOrder() {
           <div class="basket-item__buttons">
             <span class="portion-number">${item.portionNumber}</span>
           </div>
-          <p class="basket-item__total-cost">${item.totalCost}${currencySymbol}</p>
+          <p class="basket-item__total-cost">${item.totalCost}${globalData.currencySymbol}</p>
         </div>
       </div>
       <div class="basket-item__info">
         <h3>${item.dishName}</h3>
         <h4>${item.dishNameMainLang}</h4>
-        <p><span>${words[lang].portion}<span class="portion-name">${item.portionName}</span> - </span><span> <span class="portion-cost">${item.portionCost}${currencySymbol}</span></span></p>
+        <p><span>${words[lang].portion}<span class="portion-name">${item.portionName}</span> - </span><span> <span class="portion-cost">${item.portionCost}${globalData.currencySymbol}</span></span></p>
         
       </div>
+      <span class='orderTime'>${item.orderTime}</span>
       `;
     totalCost += item.totalCost;
     orderListDiv.appendChild(cardItem);
   });
-  document.querySelector('.totalCost-order').innerText = `${words[lang].totalCost} ${totalCost} ${currencySymbol}`;
+  document.querySelector('#totalCostOrder').innerHTML = `${words[lang].totalCostOrder} <br> <span>${totalCost} ${globalData.currencySymbol}</span>`;
+  mainResetAfterSendOrder()
+}
 
-  basketList = [];
-  renderBasketList();
-  document.querySelector('.button_active').classList.remove('button_active');
-  document.getElementById('dishesCategoryList').querySelector('button').classList.add('button_active');
-  renderDishesList(storeData[0][`${lang}Category`]);
+function mainResetAfterSendOrder() {
   basketButtonOpen.classList.remove('basket_have');
   sendOrderButton.disabled = true;
   sendOrderButton.classList.add('_display_none');
-  sendOrderButton.innerText = 'Добавть к заказу';
-  document.getElementById('yourOrder').classList.add('_active');
-  console.log(ordersList);
-
-
+  sendOrderButton.innerText = `${words[lang].updateOrder}`;
+  yourOrderButton.classList.add('_active');
+  yourOrderButton.classList.remove('_display_none');
 }
 
 
 
 
-document.getElementById('yourOrder').addEventListener('click', () => {
-  console.log('ok');
 
-  document.querySelector('.order-box').classList.add('_show');
-})
-
-document.getElementById('orderListClouse').addEventListener('click', () => {
-  document.querySelector('.order-box').classList.remove('_show');
-})
-
-
-
+//Функция создания id заказа
 function createOrderId() {
   const now = new Date();
 
@@ -578,25 +509,24 @@ function createOrderId() {
 }
 
 
-//Функция уведомления об открытии сайта
-// function onVisit() {
-//   const chatId = '396606827';
-//   const messageText = `⚡Новый визи на сайт CIAO CACAO Язык ${lang}`;
-
-//   const url = `https://api.telegram.org/bot6787781737:AAGpLJ84BHUon0i6p9mxa3EecA-GPrDTgL4/sendMessage`;
-//   const params = {
-//     chat_id: chatId,
-//     text: messageText,
-//   };
-//   axios.post(url, params)
-//     .then(response => {
-
-//     })
-//     .catch(error => {
-
-//     });
-//   return false
-// }
-// setTimeout(() => {
-//   onVisit()
-// }, 1000);
+//Функция сохранения данных
+function saveDataToLocal() {
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, '0'); // День
+  const month = String(now.getMonth() + 1).padStart(2, '0'); // Месяц
+  const year = now.getFullYear(); // Год
+  const date = `${day}.${month}.${year}`;
+  const hours = String(now.getHours()).padStart(2, '0'); // Часы
+  const minutes = String(now.getMinutes()).padStart(2, '0'); // Минуты
+  const userData = {
+    userTableNumber: tableNumber,
+    userOrderList: ordersList,
+    userBascketList: basketList,
+    userOrderID: orderId,
+    datelastVisit: date,
+  }
+  localStorage.setItem('userData', JSON.stringify(userData))
+}
+window.addEventListener('beforeunload', () => {
+  saveDataToLocal();
+});

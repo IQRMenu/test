@@ -505,7 +505,7 @@ button.basket-clouse_active{
   padding: 150px 20px 0;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   padding-bottom: 50px;
 }
 
@@ -626,21 +626,23 @@ button.basket-clouse_active{
   right: 0px;
   top: 80px;
   width: 100%;
-  background-color: var(--color3);
-  color: var(--color1);
+  background-color: var(--color1);
+  color: var(--color2);
   height: 50px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   padding: 0px 8px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   border-radius: 0;
+  text-align: center;
 }
 
 .basket-box__total-price span {
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 20px;
 }
 
 .basket-box_open {
@@ -781,7 +783,7 @@ footer i{
   top: 0;
   left: 0;
   background-color: var(--color2);
-  padding: 10vh 20px;
+  padding: 5vh 20px 8vh;
   z-index: 100;
   transition: 0.5s;
   display: flex;
@@ -796,9 +798,9 @@ footer i{
   visibility: visible;
 }
 
-#orderListClouse{
+#orderBoxClouse{
   position: fixed;
-  top: 20px;
+  top: 10px;
   right: 20px;
   width: 60px;
   height: 60px;
@@ -818,14 +820,18 @@ footer i{
 
 }
 .totalCost-order{
-  color: var(--color1);
-  font-size: 20px;
-  background-color: var(--color3);
+  color: var(--color2);
+  font-size: 16px;
+  background-color: var(--color1);
   padding: 8px 0;
   text-align: center;
   width: 100vw;
   transform: translateX(-20px);
   position: sticky;
+}
+.totalCost-order span{
+  font-size: 20px;
+  font-weight: 800;
 }
 
 .order-list{
