@@ -122,6 +122,11 @@ async function sendMessageForPay(type) {
     currencySymbol: globalData.currencySymbol,
   };
   let fullText = Object.keys(variables).reduce((text, key) => {
+    // Если это orderId, оборачиваем его в обратные кавычки для машинописного шрифта
+    if (key === 'orderId') {
+      return text.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), `\`${variables[key]}\``);
+    }
+    // Для остальных переменных подставляем обычные значения
     return text.replace(new RegExp(`\\$\\{${key}\\}`, 'g'), variables[key]);
   }, words[globalData.mainLang].textMessage);
   try {
@@ -133,6 +138,7 @@ async function sendMessageForPay(type) {
       body: JSON.stringify({
         chat_id: globalData.chatId,
         text: fullText,
+        parse_mode: 'Markdown', 
       }),
     });
 
@@ -484,11 +490,12 @@ async function sendOrder() {
   }
   yourOrderButton.innerHTML = `${words[lang].yourOrderButton} ${orderId}`;
   let totalCostMessage = 0;
-  let orderMessage = `${words[globalData.mainLang].newOrderMessage}\n${words[globalData.mainLang].visitorNnativeLanguage}${lang}\n${words[globalData.mainLang].tableNumber}${tableNumber}\n${words[globalData.mainLang].orderNumber}\n${orderId}\n`;
+  let orderMessage = `${words[globalData.mainLang].newOrderMessage}\n${words[globalData.mainLang].visitorNnativeLanguage}${lang}\n${words[globalData.mainLang].tableNumber}${tableNumber}\n${words[globalData.mainLang].orderNumber}\n\`${orderId}\`\n`;
+
   let portionNumberMessage = 0;
 
   if (ordersList.length > 0) {
-    orderMessage = `${words[globalData.mainLang].updateOrderMessage}\n${words[globalData.mainLang].visitorNnativeLanguage}${lang}\n${words[globalData.mainLang].tableNumber}${tableNumber}\n${words[globalData.mainLang].orderNumber}\n${orderId}\n`;
+    orderMessage = `${words[globalData.mainLang].updateOrderMessage}\n${words[globalData.mainLang].visitorNnativeLanguage}${lang}\n${words[globalData.mainLang].tableNumber}${tableNumber}\n${words[globalData.mainLang].orderNumber}\n\`${orderId}\`\n`;
     orderMessage += `\n\n${words[lang].oldDishes}\n`;
     ordersList.forEach(item => {
       portionNumberMessage += 1;
@@ -522,6 +529,7 @@ async function sendOrder() {
     body: JSON.stringify({
       chat_id: globalData.chatId,
       text: orderMessage,
+      parse_mode: 'Markdown', 
     }),
   })
 
@@ -629,7 +637,7 @@ function createOrderId() {
   const seconds = String(now.getSeconds()).padStart(2, '0'); // Секунды
 
   // Объединяем результат
-  const result = `${day}.${month}.${year} ${hours}:${minutes}:${seconds} - ${tableNumber}`;
+  const result = `${day}.${month}.${year}_${hours}:${minutes}:${seconds}-${tableNumber}`;
   return result;
 };
 

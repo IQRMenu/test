@@ -23,7 +23,7 @@ export const words = {
     yourOrderButton: "Ваш заказ<br>№",
     payOrderButton: "Оплатить",
 
-    tableNumber: "Стол № ",
+    tableNumber: "🍽️ Стол № ",
     orderNumber: "#️⃣ Номер заказа",
     newOrderMessage: "‼️🔴 Новый заказ!\n",
     updateOrderMessage: "‼️🟢 Обновление заказа\n",
@@ -39,7 +39,7 @@ export const words = {
     waiterWillCome: "Спасибо! Скоро к вам придет официант.",
     errorInviteWaiter: "Что-то пошло не так, пожалуйста пригласите официанта",
     enterCorrectly: "Пожалуйста введите корректно номер стола",
-    textMessage: "💵 Оплата заказа!\n\nНомер закза - ${orderId}\nСтол № ${tableNumber}\nСпособ оплаты - ${paymentMethod}\n\n📃 Вот чек:\n ${orderListText}\n💰 Итого: ${totalCostMessage} ${currencySymbol}\n",
+    textMessage: "💵 Оплата заказа!\n\n#️⃣ Номер закза -\n${orderId}\n🍽️ Стол № ${tableNumber}\n💶💳 Способ оплаты - ${paymentMethod}\n\n📃 Вот чек:\n ${orderListText}\n💰 Итого: ${totalCostMessage} ${currencySymbol}\n",
 
 
   },
@@ -66,7 +66,7 @@ export const words = {
     totalCostOrder: "Order cost: ",
     yourOrderButton: "Your order<br>№",
 
-    tableNumber: "Table № ",
+    tableNumber: "🍽️Table № ",
     orderNumber: "#️⃣ Order number",
     newOrderMessage: "‼️🔴 New order!\n",
     updateOrderMessage: "‼️🟢 Order update\n",
@@ -83,7 +83,7 @@ export const words = {
     waiterWillCome: "Thank you! A waiter will come to you soon.",
     errorInviteWaiter: "Something went wrong, please call a waiter.",
     enterCorrectly: "Please enter the table number correctly.",
-    textMessage: "💵 Order payment!\n\nOrder number - ${orderId}\nTable № ${tableNumber}\nPayment method - ${paymentMethod}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
+    textMessage: "💵 Order payment!\n\n#️⃣ Order number -\n${orderId}\n🍽️ Table № ${tableNumber}\n💶💳 Payment method - ${paymentMethod}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   },
   es: {
     visitorNnativeLanguage: "Idioma nativo del visitante - ",
@@ -108,7 +108,7 @@ export const words = {
     totalCostOrder: "Costo del pedido: ",
     yourOrderButton: "Tu pedido<br>№",
 
-    tableNumber: "Mesa № ",
+    tableNumber: "🍽️ Mesa № ",
     orderNumber: "#️⃣ Número de pedido",
     newOrderMessage: "‼️🔴 ¡Nuevo pedido!\n",
     updateOrderMessage: "‼️🟢 Actualización del pedido\n",
@@ -125,7 +125,7 @@ export const words = {
     waiterWillCome: "¡Gracias! Un mesero vendrá pronto.",
     errorInviteWaiter: "Algo salió mal, por favor llama a un mesero.",
     enterCorrectly: "Por favor, ingresa correctamente el número de mesa.",
-    textMessage: "💵 ¡Pago del pedido!\n\nNúmero de pedido - ${orderId}\nMesa Nº ${tableNumber}\nMétodo de pago - ${paymentMethod}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
+    textMessage: "💵 ¡Pago del pedido!\n\n#️⃣ Número de pedido -\n${orderId}\n🍽️ Mesa Nº ${tableNumber}\n💶💳 Método de pago - ${paymentMethod}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   },
   pt: {
     visitorNnativeLanguage: "Idioma nativo do visitante - ",
@@ -151,7 +151,7 @@ export const words = {
     yourOrderButton: "Seu pedido<br>№",
     payOrderButton: "Pagar",
 
-    tableNumber: "Mesa № ",
+    tableNumber: "🍽️ Mesa № ",
     orderNumber: "#️⃣ Número do pedido",
     newOrderMessage: "‼️🔴 Novo pedido!\n",
     updateOrderMessage: "‼️🟢 Atualização do pedido\n",
@@ -167,6 +167,6 @@ export const words = {
     waiterWillCome: "Obrigado! Um garçom virá até você em breve.",
     errorInviteWaiter: "Algo deu errado, por favor, chame um garçom.",
     enterCorrectly: "Por favor, insira o número da mesa corretamente.",
-    textMessage: "💵 Pagamento do pedido!\n\nNúmero do pedido - ${orderId}\nMesa nº ${tableNumber}\nMétodo de pagamento - ${paymentMethod}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
+    textMessage: "💵 Pagamento do pedido!\n\n#️⃣ Número do pedido -\n${orderId}\n🍽️ Mesa nº ${tableNumber}\n💶💳 Método de pagamento - ${paymentMethod}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   }
 }
