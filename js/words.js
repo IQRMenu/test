@@ -1,37 +1,50 @@
 export const words = {
   ru: {
-      portion: "порция",
-      cost: "стоимость",
-      pieces: "штуки",
-  
-      totalCost: "Стоимость блюд в корзине: <br>",
-      yourOrderTitle: "Ваш заказ",
-      sendOrder: "Отправить заказ",
-      updateOrder: "Добавить к заказу",
-  
-      yourCart: "Корзина:",
-      announcement: "",
-      announcementText: "Выберите желаемые блюда, затем пригласите официанта и покажите ему корзину.",
-      googleFedback: "Оставьте отзыв",
-      deletePortionMessage: "Удалить порцию?",
-  
-      textSendOrder: "Заказ успешно отправлен!",
-      textErrorSendOrder: "Ошибка при отправке заказа. Пожалуйста, попробуйте ещё раз или пригласите официанта.",
-      textAskTableNumber: "Пожалуйста, введите номер стола. Его можно увидеть на QR-коде, который находится на вашем столе.",
-      totalCostOrder: "Стоимость заказа: ",
-      yourOrderButton: "Ваш заказ<br>№",
-  
-      tableNumber: "Стол № ",
-      orderNumber: "#️⃣ Номер заказа",
-      newOrderMessage: "‼️🔴 Новый заказ!\n",
-      updateOrderMessage: "‼️🟢 Обновление заказа\n",
-      oldDishes: "🟨 Прошлые блюда:",
-      newDishes: "🟩 Новые блюда:",
-      listDishes: "📃 Список блюд:",
-  
-      IQRMenuLink: "Заказать меню",
+    visitorNnativeLanguage: "Родной язык посетителя - ",
+    portion: "порция",
+    cost: "стоимость",
+    pieces: "штуки",
+
+    totalCost: "Стоимость блюд в корзине: <br>",
+    yourOrderTitle: "Ваш заказ",
+    sendOrder: "Отправить заказ",
+    updateOrder: "Добавить к заказу",
+
+    yourCart: "Корзина:",
+    announcement: "",
+    announcementText: "Выберите желаемые блюда, затем пригласите официанта и покажите ему корзину.",
+    googleFedback: "Оставьте отзыв",
+    deletePortionMessage: "Удалить порцию?",
+
+    textSendOrder: "Заказ успешно отправлен!",
+    textErrorSendOrder: "Ошибка при отправке заказа. Пожалуйста, попробуйте ещё раз или пригласите официанта.",
+    textAskTableNumber: "Пожалуйста, введите номер стола. Его можно увидеть на QR-коде, который находится на вашем столе.",
+    totalCostOrder: "Стоимость заказа: ",
+    yourOrderButton: "Ваш заказ<br>№",
+    payOrderButton: "Оплатить",
+
+    tableNumber: "Стол № ",
+    orderNumber: "#️⃣ Номер заказа",
+    newOrderMessage: "‼️🔴 Новый заказ!\n",
+    updateOrderMessage: "‼️🟢 Обновление заказа\n",
+    oldDishes: "🟨 Прошлые блюда:",
+    newDishes: "🟩 Новые блюда:",
+    listDishes: "📃 Список блюд:",
+
+    IQRMenuLink: "Заказать меню",
+    selectPaymentMethod: "Выберете способ оплаты",
+    cash: "Наличные",
+    bankCard: "Карта",
+    cancelButton: "Отмена",
+    waiterWillCome: "Спасибо! Скоро к вам придет официант.",
+    errorInviteWaiter: "Что-то пошло не так, пожалуйста пригласите официанта",
+    enterCorrectly: "Пожалуйста введите корректно номер стола",
+    textMessage: "💵 Оплата заказа!\n\nНомер закза - ${orderId}\nСтол № ${tableNumber}\nСпособ оплаты - ${paymentMethod}\n\n📃 Вот чек:\n ${orderListText}\n💰 Итого: ${totalCostMessage} ${currencySymbol}\n",
+
+
   },
   en: {
+    visitorNnativeLanguage: "Visitor's native language - ",
     portion: "portion",
     cost: "cost",
     pieces: "pieces",
@@ -60,10 +73,20 @@ export const words = {
     oldDishes: "🟨 Previous dishes:",
     newDishes: "🟩 New dishes:",
     listDishes: "📃 List of dishes:",
+    payOrderButton: "Pay",
 
     IQRMenuLink: "Order menu",
+    selectPaymentMethod: "Choose a payment method",
+    cash: "Cash",
+    bankCard: "Card",
+    cancelButton: "Cancel",
+    waiterWillCome: "Thank you! A waiter will come to you soon.",
+    errorInviteWaiter: "Something went wrong, please call a waiter.",
+    enterCorrectly: "Please enter the table number correctly.",
+    textMessage: "💵 Order payment!\n\nOrder number - ${orderId}\nTable № ${tableNumber}\nPayment method - ${paymentMethod}\n\n📃 Here is the receipt:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   },
   es: {
+    visitorNnativeLanguage: "Idioma nativo del visitante - ",
     portion: "porción",
     cost: "costo",
     pieces: "piezas",
@@ -92,10 +115,20 @@ export const words = {
     oldDishes: "🟨 Platos anteriores:",
     newDishes: "🟩 Platos nuevos:",
     listDishes: "📃 Lista de platos:",
+    payOrderButton: "Pagar",
 
-    IQRMenuLink: "Pedir menú"
+    IQRMenuLink: "Pedir menú",
+    selectPaymentMethod: "Elige un método de pago",
+    cash: "Efectivo",
+    bankCard: "Tarjeta",
+    cancelButton: "Cancelar",
+    waiterWillCome: "¡Gracias! Un mesero vendrá pronto.",
+    errorInviteWaiter: "Algo salió mal, por favor llama a un mesero.",
+    enterCorrectly: "Por favor, ingresa correctamente el número de mesa.",
+    textMessage: "💵 ¡Pago del pedido!\n\nNúmero de pedido - ${orderId}\nMesa Nº ${tableNumber}\nMétodo de pago - ${paymentMethod}\n\n📃 Aquí está el recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   },
   pt: {
+    visitorNnativeLanguage: "Idioma nativo do visitante - ",
     portion: "porção",
     cost: "custo",
     pieces: "peças",
@@ -116,6 +149,7 @@ export const words = {
     textAskTableNumber: "Por favor, insira o número da sua mesa. Você pode encontrá-lo no código QR localizado na sua mesa.",
     totalCostOrder: "Custo do pedido: ",
     yourOrderButton: "Seu pedido<br>№",
+    payOrderButton: "Pagar",
 
     tableNumber: "Mesa № ",
     orderNumber: "#️⃣ Número do pedido",
@@ -125,6 +159,14 @@ export const words = {
     newDishes: "🟩 Pratos novos:",
     listDishes: "📃 Lista de pratos:",
 
-    IQRMenuLink: "Pedir cardápio"
+    IQRMenuLink: "Pedir cardápio",
+    selectPaymentMethod: "Escolha um método de pagamento",
+    cash: "Dinheiro",
+    bankCard: "Cartão",
+    cancelButton: "Cancelar",
+    waiterWillCome: "Obrigado! Um garçom virá até você em breve.",
+    errorInviteWaiter: "Algo deu errado, por favor, chame um garçom.",
+    enterCorrectly: "Por favor, insira o número da mesa corretamente.",
+    textMessage: "💵 Pagamento do pedido!\n\nNúmero do pedido - ${orderId}\nMesa nº ${tableNumber}\nMétodo de pagamento - ${paymentMethod}\n\n📃 Aqui está o recibo:\n ${orderListText}\n💰 Total: ${totalCostMessage} ${currencySymbol}\n"
   }
 }

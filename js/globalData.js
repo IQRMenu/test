@@ -5,7 +5,7 @@ export let globalData = {
   mainLang: 'ru',
   currencySymbol: '$',
   googleLink: 'https://maps.app.goo.gl/StkHhp6WBcwhrJUTA',
-  version: 'pro',
+  version: 'pro',//pro o basik
 
   fotmAction: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeeB1nBthuaUehbN_1XHBKwR3yMKWh6FGzjsEL9NwbttBKfog/formResponse",
   inputNames: {
