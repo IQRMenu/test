@@ -53,11 +53,13 @@
 
   <form target="iframe" method="post" action="" id="sendOrderTable">
     <iframe name="iframe" id="iframe"></iframe>
-    <input type="text" id="langOrderTable" name="">
-    <input type="text" id="visitorTypeOrderTable" name="">
-    <input type="text" id="tableNumberOrderTable" name="">
-    <input type="text" id="dishesOrderTable" name="">
-    <input type="text" id="totolCostOrderTable" name="">
+    <input type="text" id="inputOrderId" name="">
+    <input type="text" id="inputLangOrderTable" name="">
+    <input type="text" id="inputVisitorTypeOrderTable" name="">
+    <input type="text" id="inputTableNumberOrderTable" name="">
+    <input type="text" id="inputDishesOrderTable" name="">
+    <input type="text" id="inputTotolCostOrderTable" name="">
+    <input type="text" id="inputType" name="">
     <button type="submit">Send</button>
   </form>
 
@@ -67,10 +69,10 @@
   <div id="dishesList" class="dishes-list"></div>
 
   <div class="basket-box">
-    <button id="yourOrder" class="_display_none"></button>
+    <button id="yourOrder" class="_display_none"></button>   
     <h3 id="yourCart"></h3>
-    <div id="basketList" class="basket-box__list basket-list"></div>
     <div class="basket-box__total-price" id="totalCost"></div>
+    <div id="basketList" class="basket-box__list basket-list"></div>
     <button class="button-order _display_none" id="sendOrder"></button>
   </div>
 

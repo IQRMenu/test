@@ -7,13 +7,16 @@ export let globalData = {
   googleLink: 'https://maps.app.goo.gl/StkHhp6WBcwhrJUTA',
   version: 'pro',//pro o basik
 
-  fotmAction: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeeB1nBthuaUehbN_1XHBKwR3yMKWh6FGzjsEL9NwbttBKfog/formResponse",
+  fotmAction: "https://docs.google.com/forms/u/0/d/e/1FAIpQLSePk5-qlP6l6Ued7pi8q5A3RfSUIcY4vqUwjYi1TlIDEM-BqA/formResponse",
   inputNames: {
-    langOrderTable: "entry.1316586027",
-    visitorTypeOrderTable: "entry.1007692396",
-    tableNumberOrderTable: "entry.2046839169",
-    dishesOrderTable: "entry.1908326377",
-    totolCostOrderTable: "entry.1796550809",
+    inputOrderId: "entry.1753983149",
+    inputLangOrderTable: "entry.868338239",
+    inputTableNumberOrderTable: "entry.814736468",
+    inputVisitorTypeOrderTable: "entry.1357817951",
+    inputDishesOrderTable: "entry.993484371",
+    inputTotolCostOrderTable: "entry.728135158",
+    inputType: "entry.968086505",
+    
   }
 
 }
